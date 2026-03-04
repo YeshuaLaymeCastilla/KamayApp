@@ -60,7 +60,10 @@ export default function App() {
   // Click de producto depende del modo admin
   function onProductClick(p: any) {
     if (adminMode === "edit") setEditProductId(p.id);
-    else s.addProductToCart(p);
+    else {
+      s.addProductToCart(p);
+      s.showToast("Agregado ✅", 1000);
+    }
   }
 
   return (
@@ -261,6 +264,8 @@ export default function App() {
           onSaveFile={s.setYapeQrFromFile}
         />
       )}
+
+      {s.toast && <div className="toastCenter">{s.toast}</div>}
     </div>
   );
 }

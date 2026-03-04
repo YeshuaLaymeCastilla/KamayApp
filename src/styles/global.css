@@ -420,3 +420,26 @@ body { margin: 0; background: #f6f7fb; font-family: system-ui, -apple-system, Se
 .catRow { display: flex; gap: 8px; flex-wrap: wrap; }
 .searchRow { display: flex; gap: 8px; flex-wrap: wrap; }
 .searchInput { flex: 1; min-width: 220px; }
+
+.toastCenter{
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(20,20,20,.88);
+  color: white;
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-weight: 900;
+  font-size: 14px;
+  letter-spacing: .2px;
+  z-index: 9999;
+  box-shadow: 0 12px 30px rgba(0,0,0,.25);
+  pointer-events: none;
+  animation: toastPop .12s ease-out;
+}
+
+@keyframes toastPop{
+  from { transform: translate(-50%, -50%) scale(.96); opacity: .2; }
+  to   { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+}

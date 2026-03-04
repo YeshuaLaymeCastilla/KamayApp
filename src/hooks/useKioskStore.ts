@@ -40,6 +40,8 @@ export function useKioskStore() {
 
   const [yapeQrDataUrl, setYapeQrDataUrl] = useState<string | null>(null);
 
+  const [toast, setToast] = useState<string | null>(null);
+
   // -------- CARGA INICIAL --------
   useEffect(() => {
     (async () => {
@@ -51,11 +53,25 @@ export function useKioskStore() {
       setDayEndISO(end);
       setOrders(ord);
 
-      // productos
+      // productos (NO reponer defaults si el usuario borró todo)
+      const initialized = await idb.getSetting("catalog_initialized"); // "1" si ya se inicializó alguna vez
       const dbProducts = await idb.getProducts();
-      const base = dbProducts.length ? dbProducts : defaultProducts;
 
-      if (!dbProducts.length) await idb.setProducts(base);
+      let base: Product[] = [];
+
+      if (dbProducts.length > 0) {
+        base = dbProducts;
+      } else {
+        if (initialized === "1") {
+          // Ya se usó antes y quedó vacío (borraron todo) -> respetar vacío
+          base = [];
+        } else {
+          // Primera vez real -> cargar defaults
+          base = defaultProducts;
+          await idb.setProducts(base);
+          await idb.setSetting("catalog_initialized", "1");
+        }
+      }
 
       setProducts(base);
 
@@ -223,6 +239,7 @@ export function useKioskStore() {
 
     if (payload.file) p.imageDataUrl = await readFileAsDataURL(payload.file);
 
+    await idb.setSetting("catalog_initialized", "1");
     await idb.upsertProduct(p);
     setProducts(await idb.getProducts());
   }
@@ -271,6 +288,11 @@ export function useKioskStore() {
     setYapeQrDataUrl(data);
   }
 
+  function showToast(message: string, ms = 1000) {
+    setToast(message);
+    window.setTimeout(() => setToast(null), ms);
+  }
+
   return {
     screen,
     setScreen,
@@ -313,6 +335,9 @@ export function useKioskStore() {
 
     yapeQrDataUrl,
     setYapeQrFromFile,
+
+    toast,
+    showToast,
   };
 }
 
