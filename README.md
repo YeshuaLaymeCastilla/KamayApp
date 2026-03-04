@@ -1,73 +1,27 @@
-# React + TypeScript + Vite
+KamayApp
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+KamayApp es una aplicación tipo kiosco diseñada para panaderías y pequeños negocios de alimentos. Permite a los clientes realizar pedidos de forma rápida desde una pantalla táctil o dispositivo móvil, sin necesidad de interacción directa con el personal.
 
-Currently, two official plugins are available:
+La aplicación muestra el catálogo de productos, permite agregarlos a un carrito de compra y generar pedidos que pueden pagarse mediante códigos QR compatibles con billeteras digitales como Yape.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+KamayApp está desarrollada como una Progressive Web App (PWA) utilizando React y TypeScript, y se empaqueta para Android mediante Capacitor, lo que permite ejecutarla tanto en navegadores web como en dispositivos Android.
 
-## React Compiler
+Características principales:
+- Catálogo visual de productos con imágenes
+- Sistema de carrito de compras
+- Generación de pedidos local
+- Pagos mediante QR (Yape)
+- Interfaz optimizada para kioscos y pantallas táctiles
+- Funciona offline con almacenamiento local (IndexedDB)
+- Compatible con web y Android
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Tecnologías utilizadas:
+- React
+- TypeScript
+- Vite
+- Capacitor
+- IndexedDB
+- Progressive Web App (PWA)
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Objetivo del proyecto:
+El objetivo de KamayApp es ofrecer una solución sencilla y accesible para pequeños negocios que desean digitalizar el proceso de pedidos sin necesidad de sistemas complejos o costosos.
